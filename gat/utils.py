@@ -18,7 +18,7 @@ def label_to_index(labels):
     return np.array([classes_dict[i] for i in labels])
 
 
-def load_data(path="./data/cora/", dataset="cora"):
+def load_data(path="../data/cora/", dataset="cora"):
     """Load citation network dataset (cora only for now)"""
     print('Loading {} dataset...'.format(dataset))
 

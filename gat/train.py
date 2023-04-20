@@ -22,7 +22,7 @@ parser.add_argument('--no-cuda', action='store_true', default=False, help='Disab
 parser.add_argument('--fastmode', action='store_true', default=False, help='Validate during training pass.')
 parser.add_argument('--sparse', action='store_true', default=False, help='GAT with sparse version or not.')
 parser.add_argument('--seed', type=int, default=72, help='Random seed.')
-parser.add_argument('--epochs', type=int, default=10, help='Number of epochs to train.')
+parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train.')
 parser.add_argument('--lr', type=float, default=0.005, help='Initial learning rate.')
 parser.add_argument('--weight_decay', type=float, default=5e-4, help='Weight decay (L2 loss on parameters).')
 parser.add_argument('--hidden', type=int, default=8, help='Number of hidden units.')
@@ -63,13 +63,14 @@ optimizer = optim.Adam(model.parameters(),
                        weight_decay=args.weight_decay)
 
 if args.cuda:
-    model.cuda()
-    features = features.cuda()
-    adj = adj.cuda()
-    labels = labels.cuda()
-    idx_train = idx_train.cuda()
-    idx_val = idx_val.cuda()
-    idx_test = idx_test.cuda()
+    device = 1
+    model.cuda(device)
+    features = features.cuda(device)
+    adj = adj.cuda(device)
+    labels = labels.cuda(device)
+    idx_train = idx_train.cuda(device)
+    idx_val = idx_val.cuda(device)
+    idx_test = idx_test.cuda(device)
 
 features, adj, labels = Variable(features), Variable(adj), Variable(labels)
 
